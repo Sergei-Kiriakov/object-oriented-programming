@@ -1,4 +1,4 @@
-// Практическая работа 5, Вариант 15. Кирьяков Сергей КМБО-01-21.
+// РџСЂР°РєС‚РёС‡РµСЃРєР°СЏ СЂР°Р±РѕС‚Р° 5, Р’Р°СЂРёР°РЅС‚ 15. РљРёСЂСЊСЏРєРѕРІ РЎРµСЂРіРµР№ РљРњР‘Рћ-01-21.
 
 #include <bits/stdc++.h>
 
@@ -7,7 +7,7 @@ using namespace std;
 class Exception: public std::exception
 {
 protected:
-    //сообщение об ошибке
+    //СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
     char* str;
 public:
     Exception()
@@ -21,14 +21,14 @@ public:
         strcpy(str, s);
     }
 
-    // конструктор копий
+    // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёР№
     Exception(const Exception& e)
     {
         str = new char[strlen(e.str) + 1];
         strcpy(str, e.str);
     }
 
-	// деструктор
+	// РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	virtual ~Exception()
 	{
 		delete[] str; str = nullptr;
@@ -47,14 +47,14 @@ protected:
 	int ind_column;
 public:
 
-	// конструктор
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	IndexOutOfBounds(const char *s, const int &row, const int &column) : Exception(s)
 	{
 		ind_row = row;
 		ind_column = column;
 	}
 
-	// конструктор копий
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёР№
 	IndexOutOfBounds(const IndexOutOfBounds &e)
 	{
 		str = new char[strlen(e.str) + 1];
@@ -63,7 +63,7 @@ public:
 		ind_column = e.ind_column;
 	}
 
-	// деструктор
+	// РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	~IndexOutOfBounds() = default;
 
 	virtual void print()
@@ -75,10 +75,10 @@ public:
 class WrongDimension : public  Exception
 {
 public:
-	// конструктор
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	WrongDimension(const char* s) : Exception(s) {}
 
-	// деструктор
+	// РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 	~WrongDimension() {}
 };
 
@@ -247,8 +247,8 @@ public:
 
 	~ChildMatrix<T>() {};
 
-	// заполняем матрицу случайными значениями от 0 до 9
-	// такой маленький разброс, чтобы было больше нулей
+	// Р·Р°РїРѕР»РЅСЏРµРј РјР°С‚СЂРёС†Сѓ СЃР»СѓС‡Р°Р№РЅС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё РѕС‚ 0 РґРѕ 9
+	// С‚Р°РєРѕР№ РјР°Р»РµРЅСЊРєРёР№ СЂР°Р·Р±СЂРѕСЃ, С‡С‚РѕР±С‹ Р±С‹Р»Рѕ Р±РѕР»СЊС€Рµ РЅСѓР»РµР№
 	ChildMatrix<T> RandFill()
 	{
 	    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -337,9 +337,9 @@ ostream& my_manip(ostream& s)
 
 int32_t main()
 {
-	// Задание 5.1
+	// Р—Р°РґР°РЅРёРµ 5.1
 	cout << "Testing Part 1: " << "\n";
-	{ // тест 1
+	{ // С‚РµСЃС‚ 1
 	    cout << "Test 1:" << "\n";
 	    ChildMatrix<int> test(4, 4);
         for (int i = 0; i < 4; ++i)
@@ -353,7 +353,7 @@ int32_t main()
         ChildMatrix<int> ans = test.del_zero_rows();
         ans.print();
 	}
-	{ // тест 2
+	{ // С‚РµСЃС‚ 2
 	    cout << "Test 2:" << "\n";
 	    ChildMatrix<int> test(5, 3);
         test.RandFill();
@@ -363,29 +363,28 @@ int32_t main()
 	}
 	cout << "End of testing part 1" << "\n";
 	cout << "----------------------------------" << "\n\n";
-	// все работает :)
 
-	// Задание 5.2
+	// Р—Р°РґР°РЅРёРµ 5.2
 	cout << "Testing Part 2: " << "\n";
-	{ //тест 1
+	{ //С‚РµСЃС‚ 1
 	    cout << "Test 1:" << "\n";
 	    BaseMatrix<int> test(4, 4);
         try
         {
             cout << test(5, 5);
-            // Пытемся получить элемент test.ptr[5][5]
+            // РџС‹С‚РµРјСЃСЏ РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ test.ptr[5][5]	
         }
         catch (IndexOutOfBounds e)
         {
             e.print();
         }
 	}
-	{ // тест 2
+	{ // С‚РµСЃС‚ 2
 	    cout << "Test 2:" << "\n";
         try
         {
             BaseMatrix<int> test(-2, -2);
-            // Пытемся создать матрицу с отрицательными размерами
+            // РџС‹С‚РµРјСЃСЏ СЃРѕР·РґР°С‚СЊ РјР°С‚СЂРёС†Сѓ СЃ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹РјРё СЂР°Р·РјРµСЂР°РјРё
         }
         catch (WrongSize e)
         {
@@ -395,7 +394,7 @@ int32_t main()
 	cout << "End of testing part 2" << "\n";
 	cout << "----------------------------------" << "\n\n";
 
-	// Задание 5.3
+	// Р—Р°РґР°РЅРёРµ 5.3
 	cout << "Testing Part 3: " << "\n";
 	ofstream fout("output.txt");
     ChildMatrix<int> test1(4, 4), test2(5, 5);
@@ -410,13 +409,13 @@ int32_t main()
     test2.print();
     test4.print();
     cout << (test1 == test3) << "\n";
-    // Выведем 1 если test1 == test3
+    // Р’С‹РІРµРґРµРј 1 РµСЃР»Рё test1 == test3
 
     cout << (test2 == test4) << "\n";
-    // Выведем 1 если test2 == test4
+    // Р’С‹РІРµРґРµРј 1 РµСЃР»Рё test2 == test4
 
     cout << "End of testing part 3" << "\n";
 	cout << "----------------------------------" << "\n\n";
 }
 
-// Практическая работа 5, Вариант 15. Кирьяков Сергей КМБО-01-21.
+// РџСЂР°РєС‚РёС‡РµСЃРєР°СЏ СЂР°Р±РѕС‚Р° 5, Р’Р°СЂРёР°РЅС‚ 15. РљРёСЂСЊСЏРєРѕРІ РЎРµСЂРіРµР№ РљРњР‘Рћ-01-21.
